@@ -1,0 +1,109 @@
+.site-header {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 12px;
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: calc(env(safe-area-inset-top) + 12px) 0 6px;
+  animation: fade-in 0.7s ease both;
+}
+
+.site-title {
+  flex: none;
+  border-radius: 999px;
+}
+
+.site-title__inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 13px 8px 10px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--paper);
+  box-shadow: 2px 2px 0 var(--ink);
+  font: 600 12px/1 var(--font-display);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  transition: transform 0.25s var(--ease-pop);
+}
+
+.site-title__inner.is-wiggle {
+  animation: wiggle 0.45s ease;
+}
+
+.site-title__heart {
+  width: 14px;
+  height: 14px;
+  color: var(--pink);
+}
+
+@media (hover: hover) {
+  .site-title:hover .site-title__inner {
+    transform: rotate(-2deg) scale(1.03);
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-5deg) scale(1.04);
+  }
+  60% {
+    transform: rotate(4deg);
+  }
+}
+
+.whisper {
+  flex: 1 1 100%;
+  min-height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  font: 600 18px/1 var(--font-hand);
+  color: var(--pink-deep);
+  text-align: right;
+  opacity: 0;
+  transform: translateY(-4px) rotate(-1.5deg);
+  transition: opacity 0.5s ease, transform 0.5s var(--ease-pop);
+}
+
+.whisper.is-visible {
+  opacity: 1;
+  transform: rotate(-1.5deg);
+}
+
+.whisper__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--pink);
+  box-shadow: 0 0 0 3px rgba(255, 61, 139, 0.2);
+  animation: soft-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes soft-pulse {
+  50% {
+    box-shadow: 0 0 0 6px rgba(255, 61, 139, 0.08);
+  }
+}
+
+@media (min-width: 560px) {
+  .site-title__inner {
+    font-size: 13px;
+  }
+
+  .whisper {
+    flex: 1 1 auto;
+    font-size: 20px;
+  }
+}

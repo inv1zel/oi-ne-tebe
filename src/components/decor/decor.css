@@ -1,0 +1,465 @@
+/* ---------- фон ---------- */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bg__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(50px);
+  opacity: 0.75;
+  animation: blob-drift 22s ease-in-out infinite alternate;
+}
+
+.bg__blob--pink {
+  width: 70vmax;
+  height: 70vmax;
+  top: -32vmax;
+  right: -26vmax;
+  background: radial-gradient(circle, #ffd3e3 0%, rgba(255, 211, 227, 0) 65%);
+}
+
+.bg__blob--lav {
+  width: 60vmax;
+  height: 60vmax;
+  bottom: -30vmax;
+  left: -24vmax;
+  background: radial-gradient(circle, #e6dbff 0%, rgba(230, 219, 255, 0) 65%);
+  animation-duration: 28s;
+}
+
+.bg__blob--peach {
+  width: 36vmax;
+  height: 36vmax;
+  top: 40%;
+  left: 55%;
+  background: radial-gradient(circle, #ffe6d6 0%, rgba(255, 230, 214, 0) 65%);
+  animation-duration: 18s;
+}
+
+.bg__grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(42, 37, 48, 0.13) 1.1px, transparent 1.3px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse at 50% 40%, #000 20%, transparent 75%);
+}
+
+.bg__spark {
+  position: absolute;
+  animation: twinkle 3.6s ease-in-out infinite;
+}
+
+.bg__spark--1 {
+  top: 14%;
+  left: 5%;
+  width: 16px;
+  color: var(--lav);
+}
+
+.bg__spark--2 {
+  bottom: 12%;
+  right: 6%;
+  width: 22px;
+  color: var(--pink);
+  animation-delay: 1.2s;
+}
+
+.bg__spark--3 {
+  top: 58%;
+  left: 3%;
+  width: 11px;
+  color: var(--butter);
+  animation-delay: 2.1s;
+}
+
+@keyframes blob-drift {
+  to {
+    transform: translate(4vmax, 3vmax) scale(1.08);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.75) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1) rotate(45deg);
+  }
+}
+
+/* ---------- плавающие сердечки ---------- */
+.floaters {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.floater {
+  position: absolute;
+  bottom: 0;
+  opacity: 0;
+  transform: translateY(110%);
+  transition: opacity 1.2s ease;
+  animation: float-up linear infinite;
+  animation-play-state: paused;
+}
+
+.floaters.is-on .floater {
+  animation-play-state: running;
+}
+
+.floater.is-active {
+  opacity: var(--o);
+}
+
+.floater__shape {
+  display: block;
+  width: 100%;
+  height: 100%;
+  animation: sway 3.4s ease-in-out infinite alternate;
+}
+
+@keyframes float-up {
+  from {
+    transform: translateY(12vh) rotate(-10deg);
+  }
+  to {
+    transform: translateY(-112vh) rotate(14deg);
+  }
+}
+
+@keyframes sway {
+  from {
+    transform: translateX(calc(var(--sway) * -1));
+  }
+  to {
+    transform: translateX(var(--sway));
+  }
+}
+
+/* ---------- маленькие сердечки-секреты ---------- */
+.pop-heart {
+  --size: 26px;
+  display: grid;
+  place-items: center;
+  width: calc(var(--size) + 18px);
+  height: calc(var(--size) + 18px);
+  border-radius: 50%;
+}
+
+.pop-heart__shape {
+  width: var(--size);
+  height: var(--size);
+  filter: drop-shadow(1.5px 1.5px 0 var(--ink));
+  transition: transform 0.45s var(--ease-pop), opacity 0.3s;
+  animation: heart-idle 2.8s ease-in-out infinite;
+}
+
+.pop-heart.is-popped .pop-heart__shape {
+  transform: scale(0);
+  opacity: 0;
+  transition-duration: 0.15s;
+}
+
+@media (hover: hover) {
+  .pop-heart:hover .pop-heart__shape {
+    transform: scale(1.2) rotate(-8deg);
+  }
+}
+
+@keyframes heart-idle {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -4px;
+  }
+}
+
+/* ---------- звёздочки вокруг карточки ---------- */
+.sparkle-ring {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.sparkle-ring__item {
+  position: absolute;
+  filter: drop-shadow(1px 1px 0 rgba(42, 37, 48, 0.6));
+  animation: spark-in 0.5s var(--ease-pop) both, twinkle 2.6s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 70ms), var(--d);
+}
+
+@keyframes spark-in {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+/* ---------- композиция на главном экране ---------- */
+.cluster {
+  position: relative;
+  width: clamp(230px, 70vw, 300px);
+  aspect-ratio: 1;
+  margin: 0 auto;
+}
+
+.cluster__glow {
+  position: absolute;
+  inset: 4%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 61, 139, 0.22), rgba(255, 61, 139, 0) 68%);
+}
+
+.cluster__disc {
+  position: absolute;
+  inset: 13%;
+  border-radius: 50%;
+  border: 2px dashed rgba(42, 37, 48, 0.35);
+  background: radial-gradient(circle at 35% 30%, #fff, var(--lav-soft) 70%);
+  animation: spin 60s linear infinite;
+}
+
+.cluster__ring {
+  position: absolute;
+  inset: 0;
+  animation: spin 36s linear infinite;
+}
+
+.cluster__orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform: rotate(var(--a)) translateY(calc(clamp(230px, 70vw, 300px) * -0.43));
+}
+
+.cluster__spark {
+  position: absolute;
+  translate: -50% -50%;
+  filter: drop-shadow(1px 1px 0 rgba(42, 37, 48, 0.7));
+  animation: twinkle 3s ease-in-out infinite;
+  animation-delay: calc(var(--i) * -0.5s);
+}
+
+.big-heart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 58%;
+  translate: -50% -46%;
+  border-radius: 40%;
+  animation: heartbeat 2.4s ease-in-out infinite;
+}
+
+.big-heart svg {
+  display: block;
+  width: 100%;
+  overflow: visible;
+  filter: drop-shadow(6px 7px 0 rgba(42, 37, 48, 0.9));
+}
+
+.big-heart[data-bounce='0'] svg {
+  animation: squish-a 0.6s var(--ease-pop);
+}
+
+.big-heart[data-bounce='1'] svg {
+  animation: squish-b 0.6s var(--ease-pop);
+}
+
+.big-heart__eyes--open {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: blink 4.6s infinite;
+}
+
+.big-heart__eyes--shy,
+.big-heart.is-shy .big-heart__eyes--open {
+  opacity: 0;
+}
+
+.big-heart.is-shy .big-heart__eyes--shy {
+  opacity: 1;
+}
+
+.big-heart__blush {
+  transition: opacity 0.3s;
+  opacity: 0.85;
+}
+
+.big-heart.is-shy .big-heart__blush ellipse {
+  fill: #ff9dc0;
+}
+
+@keyframes heartbeat {
+  0%,
+  100% {
+    scale: 1;
+  }
+  12% {
+    scale: 1.05;
+  }
+  24% {
+    scale: 0.99;
+  }
+  36% {
+    scale: 1.035;
+  }
+  50% {
+    scale: 1;
+  }
+}
+
+@keyframes squish-a {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.14, 0.88);
+  }
+  60% {
+    transform: scale(0.94, 1.08) translateY(-8px);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes squish-b {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.14, 0.88);
+  }
+  60% {
+    transform: scale(0.94, 1.08) translateY(-8px);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes blink {
+  0%,
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0.1);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* стикеры */
+.sticker {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--paper);
+  box-shadow: 2px 2px 0 var(--ink);
+  font: 600 12px/1.1 var(--font-display);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.sticker--bubble {
+  top: 9%;
+  right: 2%;
+  rotate: 10deg;
+  background: var(--butter);
+  border-radius: 14px 14px 14px 3px;
+  animation: nudge 2.2s ease-in-out infinite;
+}
+
+.sticker--tag {
+  bottom: 6%;
+  left: 0;
+  rotate: -9deg;
+  background: var(--pink-soft);
+}
+
+.sticker__star {
+  width: 14px;
+  height: 14px;
+  color: var(--butter);
+}
+
+.sticker--beta {
+  top: 15%;
+  left: 3%;
+  rotate: -14deg;
+  font-size: 10px;
+  background: var(--lav);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@keyframes nudge {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: -3px -4px;
+  }
+}
+
+.cluster__pop {
+  position: absolute;
+}
+
+.cluster__pop--1 {
+  top: -2%;
+  left: 38%;
+}
+
+.cluster__pop--2 {
+  bottom: 4%;
+  right: 3%;
+}
+
+.cluster__pop--3 {
+  top: 50%;
+  left: -3%;
+}
+
+@media (min-width: 860px) {
+  .cluster {
+    width: 400px;
+  }
+
+  .cluster__orbit {
+    transform: rotate(var(--a)) translateY(-172px);
+  }
+
+  .sticker {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+}

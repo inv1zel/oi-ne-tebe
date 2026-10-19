@@ -1,0 +1,192 @@
+:root {
+  --milk: #fff8f3;
+  --paper: #fffdfb;
+  --pink-mist: #fff0f5;
+  --pink-soft: #ffd9e6;
+  --pink: #ff3d8b;
+  --pink-deep: #e01f6b;
+  --red: #ff6b6b;
+  --lav: #c9b6ff;
+  --lav-soft: #eee6ff;
+  --butter: #ffe28a;
+  --ink: #2a2530;
+  --ink-soft: #6c6271;
+
+  --font-display: 'Unbounded Variable', 'Arial Black', system-ui, sans-serif;
+  --font-body: 'Manrope Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-hand: 'Caveat Variable', 'Comic Sans MS', cursive;
+
+  --ease-pop: cubic-bezier(0.3, 1.6, 0.5, 1);
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background: var(--milk);
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  overflow-x: hidden;
+  overflow-x: clip;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.45;
+  color: var(--ink);
+  background: var(--milk);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1,
+h2,
+h3,
+p,
+ul {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+:focus-visible {
+  outline: 3px solid var(--lav);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--pink-soft);
+  color: var(--ink);
+}
+
+noscript {
+  display: block;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+/* ---------- каркас ---------- */
+.app {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 0 max(16px, env(safe-area-inset-right)) env(safe-area-inset-bottom) max(16px, env(safe-area-inset-left));
+}
+
+.stage {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px 0 36px;
+}
+
+.screen {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  animation: screen-in 0.6s var(--ease-out) backwards;
+}
+
+.screen.is-leaving {
+  animation: screen-out 0.3s ease-in forwards;
+  pointer-events: none;
+}
+
+@keyframes screen-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes screen-out {
+  to {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.985);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* «спокойный» режим на экране анализа: декор замирает */
+.app.is-calm .decor,
+.app.is-calm .decor * {
+  animation-play-state: paused !important;
+}
+
+.hand {
+  font-family: var(--font-hand);
+  font-weight: 600;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- бережём тех, кому не нравится движение ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .floaters,
+  .particle--confetti {
+    display: none !important;
+  }
+}

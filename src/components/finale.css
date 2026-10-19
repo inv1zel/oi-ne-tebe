@@ -1,0 +1,202 @@
+/* ---------- вступление ---------- */
+.finale-intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 560px;
+  min-height: 60vh;
+  min-height: 60dvh;
+  margin: 0 auto;
+}
+
+.finale-intro.is-leaving {
+  animation: screen-out 0.4s ease-in forwards;
+}
+
+.finale-intro__line {
+  animation: line-in 0.7s var(--ease-out) both;
+}
+
+.finale-intro__line.is-lead {
+  font: 600 clamp(21px, 6.4vw, 32px) / 1.2 var(--font-display);
+  letter-spacing: -0.035em;
+}
+
+.finale-intro__line.is-first {
+  color: var(--pink-deep);
+}
+
+.finale-intro__line.is-lead + .finale-intro__line.is-no {
+  margin-top: 12px;
+}
+
+.finale-intro__line.is-no {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.finale-intro__x {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  background: var(--pink-soft);
+  color: var(--pink-deep);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+@keyframes line-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(5px);
+  }
+}
+
+/* ---------- финальная карточка ---------- */
+.finale {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding-top: 14px;
+}
+
+.finale-card {
+  position: relative;
+  width: 100%;
+  padding: 36px 20px 24px;
+  border: 2px solid var(--ink);
+  border-radius: 30px;
+  background: var(--paper);
+  box-shadow: 8px 8px 0 var(--lav), 0 30px 50px -30px rgba(42, 37, 48, 0.5);
+  text-align: center;
+  rotate: -0.8deg;
+  animation: card-in-flat 0.7s var(--ease-pop) both;
+}
+
+.finale-card__tape {
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  width: 104px;
+  height: 26px;
+  translate: -50% 0;
+  rotate: 3deg;
+  border-radius: 3px;
+  background: rgba(255, 166, 201, 0.8);
+  background-image: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.4) 0 4px, transparent 4px 9px);
+}
+
+.finale-card__pop {
+  position: absolute;
+}
+
+.finale-card__pop--1 {
+  top: -24px;
+  right: -8px;
+}
+
+.finale-card__pop--2 {
+  bottom: -20px;
+  left: -6px;
+}
+
+.reveal {
+  animation: line-in 0.75s var(--ease-out) both;
+  animation-delay: calc(0.25s + var(--i) * 0.55s);
+}
+
+.finale-card__title {
+  font: 700 clamp(27px, 8.4vw, 46px) / 1.05 var(--font-display);
+  letter-spacing: -0.045em;
+}
+
+.finale-card__heart {
+  display: inline-block;
+  color: var(--pink);
+  animation: heartbeat 2.2s ease-in-out infinite;
+}
+
+.finale-card__main {
+  margin-top: 18px;
+  font-size: 19px;
+  font-weight: 650;
+  line-height: 1.4;
+}
+
+.finale-card__next {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: linear-gradient(transparent 8%, var(--pink-soft) 8%, var(--pink-soft) 92%, transparent 92%);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.finale-card__sign {
+  margin-top: 16px;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+.finale-card__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.finale-card__answer {
+  min-height: 96px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  padding-top: 18px;
+}
+
+.finale-card__accepted {
+  padding: 10px 16px;
+  border: 1.5px solid var(--ink);
+  border-radius: 16px 16px 16px 4px;
+  background: var(--lav-soft);
+  font-size: 15px;
+  font-weight: 700;
+  animation: bubble-in 0.45s var(--ease-pop) both;
+}
+
+.finale-card__ps {
+  font-size: 20px;
+  line-height: 1.15;
+  color: var(--pink-deep);
+  rotate: -1.5deg;
+  animation: line-in 0.7s 1.2s var(--ease-out) both;
+}
+
+@media (min-width: 560px) {
+  .finale-card {
+    padding: 44px 40px 28px;
+  }
+
+  .finale-card__main {
+    font-size: 21px;
+  }
+}
