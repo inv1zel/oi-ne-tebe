@@ -34,10 +34,10 @@ npm run preview    # http://localhost:4173
 2. На https://vercel.com нажмите New Project и выберите репозиторий. Vite определится сам
    (Build: `npm run build`, Output: `dist`).
 
-**GitHub Pages**
-1. `npm run build`
-2. Опубликуйте содержимое `dist/` в ветку `gh-pages`, например через `npx gh-pages -d dist`.
-3. В Settings → Pages выберите ветку `gh-pages`.
+**GitHub Pages (уже настроено)**
+1. В репозитории откройте Settings → Pages и в поле Source выберите **GitHub Actions**.
+2. Каждый пуш в `main` сам собирает и публикует сайт (`.github/workflows/deploy.yml`).
+3. Ссылка будет вида `https://<логин>.github.io/<репозиторий>/`.
 
 Сайт помечен `noindex`, поэтому поисковики не будут его показывать: ссылку увидит только тот, кому вы её отправите.
 
